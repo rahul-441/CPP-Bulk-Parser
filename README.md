@@ -13,18 +13,22 @@ A Node.js native addon (C++ / N-API) for fast bulk CSV validation and aggregatio
 
 Example output of `summarizeCsv`:
 ```js
-{ rows: 50000, totalQty: 2518712, invalidRows: 107, duplicateSkus: 49 }
+{ rows: 500000, totalQty: 25197944, invalidRows: 1072, duplicateSkus: 499 }
 ```
 
 ## Benchmark
 
-Median of 7 runs after a warm-up run, Node v21.7.1, Windows x64, 50,000-row CSV.
+Median of 7 runs after a warm-up run, Node v21.7.1, Windows x64.
 Both implementations return identical results (verified in the benchmark script).
 
-| Task | Node.js | C++ addon | Result |
-|---|---|---|---|
-| Validate + aggregate (`summarizeCsv`) | 38.0 ms | 12.2 ms | **3.1x faster** (67.9% less time) |
-| Parse to JS objects (`parseCsvObjects`) | 45.8 ms | 166.4 ms | C++ ~3.6x slower |
+| Task | Rows | Node.js | C++ addon | Result |
+|---|---|---|---|---|
+| Validate + aggregate (`summarizeCsv`) | 500K | 547.8 ms | 177.2 ms | **3.09x faster** (67.7% less time) |
+| Validate + aggregate (`summarizeCsv`) | 50K | 38.0 ms | 12.2 ms | **3.11x faster** (67.9% less time) |
+| Parse to JS objects (`parseCsvObjects`) | 50K | 45.8 ms | 166.4 ms | C++ ~3.6x slower |
+
+The speedup is consistent as the file grows 10x, so it is not a small-file or warm-up artifact.
+The "Parse to JS objects" row was measured in an earlier test and is not part of the current `npm run bench`.
 
 ## Key finding
 
