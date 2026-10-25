@@ -1,0 +1,18 @@
+{
+  "name": "cpp-bulk-parser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node-gyp rebuild",
+    "generate": "node generate.js 500000",
+    "bench": "node bench.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-addon-api": "^8.9.2",
+    "node-gyp": "^10.3.1"
+  }
+}
